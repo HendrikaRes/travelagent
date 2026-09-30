@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tapra Trip - Wujudkan Liburan Impianmu</title>
+    
+    <!-- Google Fonts: Inter untuk teks utama, Caveat untuk aksen tulisan tangan -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#D81B60', // Magenta/Pink Terang (Aksen)
+                        primaryHover: '#C2185B',
+                        textDark: '#1F2937', // Charcoal
+                        textLight: '#6B7280', // Gray-500
+                        bgLight: '#F9FAFB', // Off-white
+                        bgGray: '#F3F4F6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        script: ['Caveat', 'cursive'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 10px 30px -5px rgba(216, 27, 96, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #F9FAFB; }
+        
+        /* Glassmorphism Input */
+        .glass-input {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+
+        /* Animations */
+        .fade-in-up {
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Destinasi Card Image Hover */
+        .dest-card:hover .dest-img {
+            transform: scale(1.05);
+        }
+
+        /* Floating WA Pulse */
+        @keyframes pulse-wa {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .wa-float { animation: pulse-wa 2s infinite; }
+
+        /* SVG Line Art */
+        .line-art {
+            stroke: #374151;
+            stroke-width: 1.2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+<body class="font-sans text-textDark flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-lg border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Left: Navigation (Desktop) -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-sm font-medium text-primary transition-colors">Home</a>
+                    <a href="#destinasi" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors">Destinasi</a>
+                    <a href="#layanan" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors">Layanan</a>
+                    <a href="#corporate" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors">Corporate</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-600 hover:text-primary focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Right: Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-bold tracking-widest text-textDark hover:opacity-80 transition-opacity">
+                        TAPRA<span class="text-primary">TRIP</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow flex flex-col">
+        
+        <section class="relative w-full h-[60vh] md:h-[75vh] flex items-center justify-center overflow-hidden">
+            <!-- Background Image -->
+            <div class="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?q=80&w=2070&auto=format&fit=crop" 
+                     alt="Pemandangan Danau Tenang" 
+                     class="w-full h-full object-cover object-center transform scale-105 duration-[20s] ease-linear" />
+                <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-bgLight"></div>
+            </div>
+
+            <!-- Hero Text Content -->
+            <div class="relative z-10 text-center px-4 max-w-4xl mx-auto fade-in-up mt-[-5%]">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-lg tracking-tight">
+                    Acara liburan seperti apa<br class="hidden md:block"/> yang Anda impikan?
+                </h1>
+                <p class="text-lg md:text-xl text-gray-100 mb-8 font-light drop-shadow-md max-w-2xl mx-auto">
+                    Ceritakan secara singkat, kami bantu mewujudkannya dengan layanan eksklusif.
+                </p>
+                <p class="font-script text-4xl md:text-5xl text-white opacity-95 drop-shadow-md mt-6">
+                    Dari ide ke pengalaman nyata
+                </p>
+            </div>
+        </section>
+
+        <section class="w-full bg-bgLight py-12 relative -mt-16 z-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center bg-white/60 backdrop-blur-xl p-8 md:p-12 rounded-3xl shadow-soft border border-white">
+                    
+                    <!-- Form Brief (Kiri) -->
+                    <div class="flex flex-col space-y-6 fade-in-up delay-100 w-full">
+                        <h3 class="text-2xl font-bold text-textDark mb-2">Rancang Perjalanan Anda</h3>
+                        
+                        <div class="relative">
+                            <select id="jenisAcara" class="w-full appearance-none glass-input rounded-2xl px-6 py-4 text-textDark focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base cursor-pointer">
+                                <option value="" disabled selected>Pilih jenis acara</option>
+                                <option value="Liburan Keluarga">Liburan Keluarga</option>
+                                <option value="Corporate Outing">Corporate Outing</option>
+                                <option value="Honeymoon">Honeymoon</option>
+                                <option value="Solo Travel">Solo Travel</option>
+                                <option value="Open Trip">Open Trip</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-gray-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <select id="kotaTujuan" class="w-full appearance-none glass-input rounded-2xl px-6 py-4 text-textDark focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base cursor-pointer">
+                                <option value="" disabled selected>Pilih kota tujuan</option>
+                                <option value="Bali">Bali</option>
+                                <option value="Yogyakarta">Yogyakarta</option>
+                                <option value="Labuan Bajo">Labuan Bajo</option>
+                                <option value="Raja Ampat">Raja Ampat</option>
+                                <option value="Bandung">Bandung</option>
+                                <option value="Sumba">Sumba</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-gray-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <select id="jumlahPeserta" class="w-full appearance-none glass-input rounded-2xl px-6 py-4 text-textDark focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-base cursor-pointer">
+                                <option value="" disabled selected>Estimasi jumlah peserta</option>
+                                <option value="1-2 Orang">1 - 2 Orang</option>
+                                <option value="3-5 Orang">3 - 5 Orang</option>
+                                <option value="6-10 Orang">6 - 10 Orang</option>
+                                <option value=">10 Orang">Lebih dari 10 Orang</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 text-gray-400">
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </div>
+                        </div>
+
+                        <button onclick="submitBrief()" class="mt-2 w-full bg-primary hover:bg-primaryHover text-white font-medium rounded-2xl px-6 py-4 shadow-lg shadow-primary/30 hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300 text-lg flex justify-between items-center group">
+                            <span>Susun Brief Saya</span>
+                            <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </button>
+                    </div>
+
+                    <!-- Ilustrasi (Kanan) -->
+                    <div class="hidden lg:flex justify-center items-center fade-in-up delay-200">
+                        <svg class="w-full max-w-sm h-auto opacity-80 hover:opacity-100 transition-opacity" viewBox="0 0 400 450" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Sun & Mountains -->
+                            <g class="line-art">
+                                <path d="M200 40 L200 20" />
+                                <path d="M160 50 L145 35" />
+                                <path d="M240 50 L255 35" />
+                                <path d="M125 80 L105 70" />
+                                <path d="M275 80 L295 70" />
+                                <path d="M100 120 L80 120" />
+                                <path d="M300 120 L320 120" />
+                                <path d="M120 140 A 80 80 0 0 1 280 140" />
+                                <path d="M60 200 L140 110 L200 160 L260 90 L340 200" />
+                                <path d="M140 110 L160 150 L120 180" />
+                                <path d="M260 90 L240 140 L280 170" />
+                                <path d="M50 220 Q 100 190 150 220 T 250 220 T 350 220" />
+                                <path d="M70 240 Q 120 210 170 240 T 270 240 T 330 240" />
+                            </g>
+                            
+                            <!-- Hand & Compass -->
+                            <g class="line-art" transform="translate(0, 50)">
+                                <path d="M80 320 Q 150 350 200 350 Q 250 350 320 380" />
+                                <path d="M100 300 Q 150 330 200 330" />
+                                <path d="M110 340 Q 150 360 220 360 Q 260 360 300 410" />
+                                <circle cx="210" cy="280" r="40" />
+                                <circle cx="210" cy="280" r="30" />
+                                <path d="M210 240 L210 235" />
+                                <path d="M210 250 L220 280 L210 310 L200 280 Z" stroke="#D81B60" fill="none"/>
+                                <path d="M180 280 L210 270 L240 280 L210 290 Z" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="layanan" class="w-full bg-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up delay-200">
+                <h2 class="text-3xl md:text-4xl font-bold text-textDark mb-4">Layanan Tapra Trip</h2>
+                <p class="text-textLight max-w-2xl mx-auto mb-16">Pilih layanan yang sesuai dengan gaya dan kebutuhan perjalanan Anda. Kami memastikan standar kenyamanan terbaik.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1: Hotel -->
+                    <div class="group p-8 rounded-3xl bg-bgLight border border-gray-100 hover:shadow-hover hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-white shadow-sm flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <svg class="w-8 h-8 text-textDark group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-textDark mb-3">Reservasi Hotel</h3>
+                        <p class="text-textLight text-sm leading-relaxed">Akses ke jaringan hotel premium dan akomodasi eksklusif dengan harga kompetitif dan fasilitas terbaik.</p>
+                    </div>
+
+                    <!-- Card 2: Rentcar -->
+                    <div class="group p-8 rounded-3xl bg-bgLight border border-gray-100 hover:shadow-hover hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-white shadow-sm flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <svg class="w-8 h-8 text-textDark group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-textDark mb-3">Rental Kendaraan</h3>
+                        <p class="text-textLight text-sm leading-relaxed">Penyewaan kendaraan nyaman dan aman, lengkap dengan pengemudi profesional yang mengenal area lokal.</p>
+                    </div>
+
+                    <!-- Card 3: Open Trip -->
+                    <div class="group p-8 rounded-3xl bg-bgLight border border-gray-100 hover:shadow-hover hover:-translate-y-2 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-white shadow-sm flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <svg class="w-8 h-8 text-textDark group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-textDark mb-3">Paket Open Trip</h3>
+                        <p class="text-textLight text-sm leading-relaxed">Bergabunglah dalam perjalanan seru terencana bersama pelancong lain ke destinasi eksotis favorit.</p>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="destinasi" class="w-full bg-bgLight py-20 border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 fade-in-up delay-100">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-textDark mb-3">Eksplorasi Destinasi</h2>
+                        <p class="text-textLight">Temukan pesona alam dan budaya di destinasi pilihan kami.</p>
+                    </div>
+                    <a href="#" class="hidden md:flex items-center text-primary font-medium hover:text-primaryHover transition-colors mt-4 md:mt-0 group">
+                        Lihat Semua 
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in-up delay-200">
+                    <!-- Dest 1 -->
+                    <div class="dest-card relative h-80 rounded-3xl overflow-hidden cursor-pointer group shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800&q=80" alt="Bali" class="dest-img absolute inset-0 w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <p class="text-primary font-script text-2xl mb-1 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">Pulau Dewata</p>
+                            <h3 class="text-white text-2xl font-bold">Bali</h3>
+                        </div>
+                    </div>
+                    
+                    <!-- Dest 2 -->
+                    <div class="dest-card relative h-80 rounded-3xl overflow-hidden cursor-pointer group shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1512100356356-de1b84283e18?auto=format&fit=crop&w=800&q=80" alt="Labuan Bajo" class="dest-img absolute inset-0 w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <p class="text-primary font-script text-2xl mb-1 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">Taman Nasional</p>
+                            <h3 class="text-white text-2xl font-bold">Labuan Bajo</h3>
+                        </div>
+                    </div>
+
+                    <!-- Dest 3 -->
+                    <div class="dest-card relative h-80 rounded-3xl overflow-hidden cursor-pointer group shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1584814324294-82ce6a848aeb?auto=format&fit=crop&w=800&q=80" alt="Sumba" class="dest-img absolute inset-0 w-full h-full object-cover transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-8 w-full">
+                            <p class="text-primary font-script text-2xl mb-1 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">Eksotis & Alam</p>
+                            <h3 class="text-white text-2xl font-bold">Sumba</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="corporate" class="w-full bg-white py-24">
+            <div class="max-w-4xl mx-auto px-4 text-center fade-in-up delay-300">
+                <div class="inline-block mb-6 px-4 py-1.5 rounded-full bg-gray-100 text-sm font-semibold text-gray-600 tracking-wider uppercase">
+                    Layanan B2B
+                </div>
+                <h2 class="text-3xl md:text-5xl font-bold text-textDark mb-6 leading-tight">Rencanakan Corporate Gathering Anda</h2>
+                <p class="text-textLight mb-10 text-lg md:text-xl leading-relaxed">
+                    Kami memahami bahwa acara perusahaan membutuhkan detail dan profesionalisme tingkat tinggi. Konsultasikan kebutuhan <span class="font-medium text-textDark">Corporate Outing, Team Building, atau Meeting</span> Anda bersama tim spesialis kami.
+                </p>
+                <a href="https://wa.me/6281234567890?text=Halo%20Tapra%20Trip,%20saya%20ingin%20berkonsultasi%20tentang%20paket%20Gathering/Corporate." 
+                   target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center px-8 py-4 border-2 border-textDark text-textDark hover:bg-textDark hover:text-white font-semibold rounded-full transition-all duration-300 group text-lg">
+                   <svg class="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.614-.087-.112-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                    Konsultasi via WhatsApp
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-bgLight border-t border-gray-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+                
+                <!-- Col 1: Profil Perusahaan -->
+                <div class="md:col-span-5 pr-0 md:pr-10">
+                    <a href="#" class="inline-block text-2xl font-bold tracking-widest text-textDark mb-6">
+                        TAPRA<span class="text-primary">TRIP</span>
+                    </a>
+                    <p class="text-textLight text-sm leading-relaxed mb-6">
+                        Partner perjalanan tepercaya Anda. Kami hadir untuk mewujudkan liburan impian dari sekadar ide menjadi pengalaman nyata yang tak terlupakan, dengan standar layanan eksklusif dan profesional.
+                    </p>
+                </div>
+
+                <!-- Col 2: Hubungi Kami -->
+                <div class="md:col-span-4">
+                    <h4 class="text-sm font-bold text-textDark mb-6 uppercase tracking-wider">Hubungi Kami</h4>
+                    <ul class="space-y-4 text-sm text-textLight">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 mr-3 mt-0.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span>Jl. Pemandangan Indah No. 88,<br>Kuningan, Jakarta Selatan 12950</span>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <a href="mailto:hello@tapratrip.com" class="hover:text-primary transition-colors">hello@tapratrip.com</a>
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span>+62 812 3456 7890</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Navigasi Cepat -->
+                <div class="md:col-span-3">
+                    <h4 class="text-sm font-bold text-textDark mb-6 uppercase tracking-wider">Perusahaan</h4>
+                    <ul class="space-y-3 text-sm text-textLight">
+                        <li><a href="#" class="hover:text-primary transition-colors">Tentang Kami</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Layanan Kami</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Syarat & Ketentuan</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Footer bar -->
+            <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-gray-200">
+                <p class="text-sm text-gray-400 mb-4 md:mb-0">&copy; 2024 Tapra Trip. All rights reserved.</p>
+                
+                <!-- Social Icons -->
+                <div class="flex space-x-6 text-gray-400">
+                    <a href="#" class="hover:text-primary transition-colors">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="#" class="hover:text-primary transition-colors">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6823 10.6218L20.2391 3H18.6854L12.9921 9.61788L8.44486 3H3.2002L10.0765 13.0074L3.2002 21H4.75404L10.7663 14.0113L15.5685 21H20.8131L13.6819 10.6218H13.6823ZM11.5541 13.0956L10.8574 12.0991L5.31391 4.16971H7.70053L12.1742 10.5689L12.8709 11.5655L18.6861 19.8835H16.2995L11.5541 13.096V13.0956Z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 wa-float group flex items-center justify-center">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.614-.087-.112-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+        <!-- Tooltip -->
+        <span class="absolute right-16 bg-white text-textDark text-sm px-3 py-1.5 rounded-lg shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-gray-100 pointer-events-none">
+            Chat dengan Kami
+        </span>
+    </a>
+
+    <div id="briefModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div class="relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-md scale-95 opacity-0 duration-300" id="modalContent">
+                    
+                    <div class="bg-primary/10 px-6 py-5 flex justify-between items-center border-b border-primary/20">
+                        <h3 class="text-lg font-bold text-primary" id="modal-title">Brief Tersimpan!</h3>
+                        <button onclick="closeModal()" class="text-gray-400 hover:text-primary transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="px-6 py-6">
+                        <p class="text-sm text-gray-600 mb-6">Tim spesialis Tapra Trip akan merancang itinerary luar biasa berdasarkan preferensi Anda berikut ini:</p>
+                        
+                        <div class="space-y-4 bg-bgLight p-5 rounded-2xl border border-gray-100">
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                                <span class="text-sm text-gray-500 font-medium">Jenis Acara</span>
+                                <span id="resJenis" class="text-sm font-bold text-textDark">-</span>
+                            </div>
+                            <div class="flex justify-between items-center border-b border-gray-200 pb-3">
+                                <span class="text-sm text-gray-500 font-medium">Tujuan</span>
+                                <span id="resKota" class="text-sm font-bold text-textDark">-</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500 font-medium">Peserta</span>
+                                <span id="resPeserta" class="text-sm font-bold text-textDark">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 px-6 py-4 flex flex-row-reverse rounded-b-3xl">
+                        <button type="button" onclick="closeModal()" class="inline-flex w-full justify-center rounded-xl bg-primary px-5 py-3 text-sm font-medium text-white shadow-sm hover:bg-primaryHover sm:ml-3 sm:w-auto transition-colors">
+                            Oke, Mengerti
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function submitBrief() {
+            const jenis = document.getElementById('jenisAcara').value || 'Belum dipilih';
+            const kota = document.getElementById('kotaTujuan').value || 'Belum dipilih';
+            const peserta = document.getElementById('jumlahPeserta').value || 'Belum dipilih';
+
+            document.getElementById('resJenis').innerText = jenis;
+            document.getElementById('resKota').innerText = kota;
+            document.getElementById('resPeserta').innerText = peserta;
+
+            const modal = document.getElementById('briefModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.remove('hidden');
+            void modal.offsetWidth; 
+            modalContent.classList.remove('scale-95', 'opacity-0');
+            modalContent.classList.add('scale-100', 'opacity-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('briefModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
