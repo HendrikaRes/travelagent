@@ -14,7 +14,7 @@ export default function Corporate({ t }) {
           {t.corporate.descPart2}
         </p>
         <a
-          href={`https://wa.me/6281234567890?text=${encodeURIComponent(t.corporate.waMessage)}`}
+          href={`https://wa.me/6289527193277?text=${encodeURIComponent(t.corporate.waMessage)}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex w-full sm:w-auto justify-center items-center px-6 sm:px-8 py-3.5 sm:py-4 border-2 border-textDark text-textDark hover:bg-textDark hover:text-white font-semibold rounded-full transition-all duration-300 group text-base sm:text-lg cursor-pointer active:scale-95"

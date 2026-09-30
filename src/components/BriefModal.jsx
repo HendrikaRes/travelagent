@@ -65,7 +65,7 @@ export default function BriefModal({ isOpen, briefData, onClose, t }) {
         {/* Footer Actions */}
         <div className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row-reverse gap-3 rounded-b-3xl">
           <a
-            href={`https://wa.me/6281234567890?text=${waText}`}
+            href={`https://wa.me/6289527193277?text=${waText}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex w-full justify-center items-center rounded-xl bg-[#25D366] hover:bg-[#20ba59] px-5 py-3 text-sm font-medium text-white shadow-sm transition-colors text-center"
