@@ -22,6 +22,11 @@
   --shadow-hover: 0 14px 32px -4px rgba(218, 97, 104, 0.22);
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
 body {
   background-color: #fffbfb;
   font-family: 'Inter', sans-serif;

@@ -2,7 +2,7 @@ import { motion } from 'motion/react'
 
 export default function Hero({ t }) {
   return (
-    <section className="relative w-full min-h-[480px] sm:min-h-[540px] md:min-h-[620px] h-[68vh] md:h-[78vh] flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative w-full min-h-[480px] sm:min-h-[540px] md:min-h-[620px] h-[68vh] md:h-[78vh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Slow Breathing Zoom Motion */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <motion.img

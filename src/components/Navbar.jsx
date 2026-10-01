@@ -15,12 +15,44 @@ export default function Navbar({ lang, setLang, t }) {
   }, [])
 
   const navLinks = [
-    { href: '#', label: t.nav.home, key: 'home' },
+    { href: '#home', label: t.nav.home, key: 'home' },
     { href: '#tentang', label: t.nav.tentang, key: 'tentang' },
     { href: '#destinasi', label: t.nav.destinasi, key: 'destinasi' },
     { href: '#layanan', label: t.nav.layanan, key: 'layanan' },
     { href: '#corporate', label: t.nav.corporate, key: 'corporate' },
   ]
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault()
+    setMobileMenuOpen(false)
+
+    if (href === '#' || href === '#home') {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+      if (window.location.hash) {
+        window.history.pushState(null, '', window.location.pathname)
+      }
+      return
+    }
+
+    const targetId = href.replace(/^#/, '')
+    const targetElement = document.getElementById(targetId)
+
+    if (targetElement) {
+      const headerOffset = 76
+      const elementPosition = targetElement.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.scrollY - headerOffset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      })
+
+      window.history.pushState(null, '', href)
+    }
+  }
 
   return (
     <motion.header
@@ -85,9 +117,10 @@ export default function Navbar({ lang, setLang, t }) {
                 <motion.a
                   key={item.key}
                   href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   whileHover={{ y: -1.5 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                  className={`relative group py-1 text-sm font-medium transition-colors ${
+                  className={`relative group py-1 text-sm font-medium transition-colors cursor-pointer ${
                     item.key === 'home'
                       ? 'text-primary font-semibold'
                       : 'text-textDark/80 hover:text-primary'
@@ -174,7 +207,8 @@ export default function Navbar({ lang, setLang, t }) {
           {/* Right: Logo Responsif dengan Sentuhan Hover Lembut */}
           <div className="flex-shrink-0 flex items-center h-full">
             <motion.a
-              href="#"
+              href="#home"
+              onClick={(e) => handleNavClick(e, '#home')}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: 'spring', stiffness: 350, damping: 25 }}
@@ -191,36 +225,46 @@ export default function Navbar({ lang, setLang, t }) {
         </div>
       </div>
 
-      {/* Mobile Drawer dengan Transisi Halus AnimatePresence */}
+      {/* Mobile Drawer Overlay & Dropdown dengan Transisi Halus AnimatePresence */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden md:hidden bg-white/98 backdrop-blur-md border-b border-[#f0e2e4] shadow-lg"
-          >
-            <div className="px-4 pt-3 pb-5 space-y-1">
-              {navLinks.map((item, idx) => (
-                <motion.a
-                  key={item.key}
-                  href={item.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.035, duration: 0.2 }}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`block px-3.5 py-2.5 rounded-xl text-base transition-colors ${
-                    item.key === 'home'
-                      ? 'font-semibold text-primary bg-[#fef2f3]'
-                      : 'font-medium text-textDark hover:text-primary hover:bg-[#fef2f3] active:bg-[#fde6e8]'
-                  }`}
-                >
-                  {item.label}
-                </motion.a>
-              ))}
-            </div>
-          </motion.div>
+          <>
+            {/* Backdrop overlay di luar menu */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 top-[72px] sm:top-[80px] bg-black/25 backdrop-blur-[2px] z-40 md:hidden"
+            />
+
+            {/* Menu Dropdown Mengambang Tepat di Bawah Navbar */}
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-full left-0 right-0 w-full bg-white/98 backdrop-blur-xl border-b border-[#f0e2e4] shadow-xl z-50 md:hidden"
+            >
+              <div className="px-4 pt-3 pb-5 space-y-1">
+                {navLinks.map((item) => (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className={`block px-4 py-3 rounded-xl text-base transition-colors cursor-pointer select-none ${
+                      item.key === 'home'
+                        ? 'font-semibold text-primary bg-[#fef2f3]'
+                        : 'font-medium text-textDark hover:text-primary hover:bg-[#fef2f3] active:bg-[#fde6e8]'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.header>
