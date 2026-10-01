@@ -35,10 +35,10 @@ export default function App() {
       {/* Main Sections */}
       <main className="flex-grow flex flex-col">
         <Hero t={t} />
-        <TripBriefForm onOpenBrief={handleOpenBrief} t={t} />
         <About t={t} />
-        <Services t={t} />
         <Destinations t={t} />
+        <Services t={t} />
+        <TripBriefForm onOpenBrief={handleOpenBrief} t={t} />
         <Corporate t={t} />
       </main>
 

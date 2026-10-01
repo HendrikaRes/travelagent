@@ -5,6 +5,7 @@ export default function BriefModal({ isOpen, briefData, onClose, t }) {
     `${t.modal.waGreeting}\n` +
       `- ${t.modal.eventType}: ${briefData?.jenisAcara || '-'}\n` +
       `- ${t.modal.destination}: ${briefData?.kotaTujuan || '-'}\n` +
+      `- ${t.modal.date}: ${briefData?.tanggalPerjalanan || '-'}\n` +
       `- ${t.modal.participants}: ${briefData?.jumlahPeserta || '-'}\n\n` +
       `${t.modal.waHelp}`
   )
@@ -23,7 +24,7 @@ export default function BriefModal({ isOpen, briefData, onClose, t }) {
       ></div>
 
       {/* Modal Dialog */}
-      <div className="relative z-10 w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all animate-fadeIn">
+      <div className="relative z-10 w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all animate-fadeIn border border-[#f0e2e4]">
         {/* Header */}
         <div className="bg-primary/10 px-6 py-5 flex justify-between items-center border-b border-primary/20">
           <h3 className="text-lg font-bold text-primary" id="modal-title">
@@ -31,7 +32,7 @@ export default function BriefModal({ isOpen, briefData, onClose, t }) {
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-primary transition-colors p-1 rounded-lg cursor-pointer"
+            className="text-[#6e5d5f] hover:text-primary transition-colors p-1 rounded-lg cursor-pointer"
             aria-label="Tutup"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -42,28 +43,32 @@ export default function BriefModal({ isOpen, briefData, onClose, t }) {
 
         {/* Body */}
         <div className="px-6 py-6">
-          <p className="text-sm text-gray-600 mb-6">
+          <p className="text-sm text-textLight mb-6">
             {t.modal.desc}
           </p>
 
-          <div className="space-y-4 bg-bgLight p-5 rounded-2xl border border-gray-100">
-            <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-              <span className="text-sm text-gray-500 font-medium">{t.modal.eventType}</span>
+          <div className="space-y-4 bg-bgLight p-5 rounded-2xl border border-[#f0e2e4]">
+            <div className="flex justify-between items-center border-b border-[#f0e2e4] pb-3">
+              <span className="text-sm text-textLight font-medium">{t.modal.eventType}</span>
               <span className="text-sm font-bold text-textDark">{briefData?.jenisAcara || '-'}</span>
             </div>
-            <div className="flex justify-between items-center border-b border-gray-200 pb-3">
-              <span className="text-sm text-gray-500 font-medium">{t.modal.destination}</span>
+            <div className="flex justify-between items-center border-b border-[#f0e2e4] pb-3">
+              <span className="text-sm text-textLight font-medium">{t.modal.destination}</span>
               <span className="text-sm font-bold text-textDark">{briefData?.kotaTujuan || '-'}</span>
             </div>
+            <div className="flex justify-between items-center border-b border-[#f0e2e4] pb-3">
+              <span className="text-sm text-textLight font-medium">{t.modal.date}</span>
+              <span className="text-sm font-bold text-textDark">{briefData?.tanggalPerjalanan || '-'}</span>
+            </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-500 font-medium">{t.modal.participants}</span>
+              <span className="text-sm text-textLight font-medium">{t.modal.participants}</span>
               <span className="text-sm font-bold text-textDark">{briefData?.jumlahPeserta || '-'}</span>
             </div>
           </div>
         </div>
 
         {/* Footer Actions */}
-        <div className="bg-gray-50 px-6 py-4 flex flex-col sm:flex-row-reverse gap-3 rounded-b-3xl">
+        <div className="bg-[#fff9fa] px-6 py-4 flex flex-col sm:flex-row-reverse gap-3 rounded-b-3xl border-t border-[#f0e2e4]">
           <a
             href={`https://wa.me/6289527193277?text=${waText}`}
             target="_blank"
